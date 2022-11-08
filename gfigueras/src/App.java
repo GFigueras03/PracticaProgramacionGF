@@ -8,5 +8,6 @@ public class App {
         //NumeroBinario.numeroEscogido = (int)Math.round(Math.random()*100000);
         NumeroBinario.numeroEscogido = 943;
         System.out.println(Arrays.toString(NumeroBinario.imprimirNumeroBinario()));
+        System.out.println("\n"+NumeroBinario.binarioDecimal());
     }
 }
