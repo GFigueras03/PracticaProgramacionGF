@@ -8,8 +8,7 @@ public class App {
         NumeroBinario.numeroEscogido = (int)Math.round(Math.random()*100000);
     //    NumeroBinario.numeroEscogido = 1000000000;
        System.out.println(Arrays.toString(NumeroBinario.imprimirNumeroBinario()));
-       System.out.println("\n"+NumeroBinario.binarioDecimal());
-    NumeroBinario.longitudBloque();
+ 
     }
 
 }
