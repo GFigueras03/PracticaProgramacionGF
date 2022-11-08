@@ -14,7 +14,7 @@ public class NumeroBinario{
         return numerosBinarios;
     }//Function
 
-    
+
     public static ArrayList<Integer> arrayList = new ArrayList<Integer>();
     //!FUNCION PASAR BINARIO A DECIMAL
     public static Integer binarioDecimal(){
@@ -33,4 +33,22 @@ public class NumeroBinario{
       }//for
       return suma;
       }//function
-}
+       
+      public static ArrayList<Integer> potenciasDeDos = new ArrayList<Integer>();
+
+      public static void longitudBloque(){
+        Integer count = 0;
+        for(int i = 0; i<100; i++){
+          potenciasDeDos.add((int)(Math.pow(2, i)));
+        }
+        //  System.out.println(potenciasDeDos);
+        for(int i = 0; i< arrayList.size(); i++){
+          for(int j = 0; j<potenciasDeDos.size(); j++){
+            if(i == potenciasDeDos.get(j)){
+              count++;
+            }
+          }
+        }
+        System.out.println(count);
+      }
+    }//clase
