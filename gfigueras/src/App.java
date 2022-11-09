@@ -9,6 +9,6 @@ public class App {
         System.out.println("\n"+NumeroBinario.binarioDecimal());
         NumeroBinario.longitudBloque();
         NumeroBinario.calcularParidad();
-   
+        NumeroBinario.rellenarArray();
     }
 }

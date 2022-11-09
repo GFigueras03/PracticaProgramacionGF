@@ -62,4 +62,21 @@ public class NumeroBinario{
         // System.out.println(bitParidad);
       
       }
+      //!FUNCTION RELLENO LOS HUECOS DEL ARRAY COMPLETO MENOS LA PARIDAD
+    public static void rellenarArray(){
+      hammingSize = (obtenerNumeroBinario().length + 1 + bitParidad);
+      for(int i = 0; i< obtenerNumeroBinario().length; i++){
+        codigoHamming.add(i,obtenerNumeroBinario()[i]);
+      }
+      for(int i = 0; i<= hammingSize; i++){
+        for(int j = 0; j< hammingSize; j++){
+          if((i == Math.pow(2, j)) || i == 0){
+            codigoHamming.add(i,null);
+            break;
+          }
+        }
+        
+      }
+      System.out.println(codigoHamming);
+      }
     }
