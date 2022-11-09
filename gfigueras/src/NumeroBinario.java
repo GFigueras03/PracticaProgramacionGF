@@ -99,12 +99,13 @@ public class NumeroBinario{
     public static void paridadDos(){
       int suma = 0;
       for(int i = 2; i<hammingSize; i+=4){
-        if(codigoHamming.get(i) != null){
           for(int j = 0; j<2; j++){
+            if(codigoHamming.get(i) == null){
+              codigoHamming.set(i, 0);
+            }
             suma += codigoHamming.get(i + j);
           }
         }
-      }
       if(suma % 2 == 0){
         paridadDos = 0;
       }else{
@@ -114,24 +115,26 @@ public class NumeroBinario{
       System.out.println(suma);
     }
      //PARDIDAD 3
-     public static void paridadTres(){
-      int suma = 0;
-      for(int i = 4; i<hammingSize; i+=8){
+      public static void paridadTres(){
+       int suma = 0;
+       for(int i = 4; i<hammingSize; i+=8){
         if(codigoHamming.get(i) != null){
           for(int j = 0; j<4; j++){
+            if(codigoHamming.get(i) == null){
+              codigoHamming.set(i, 0);
+            }
              suma += codigoHamming.get(i + j);
             System.out.println(codigoHamming.get(i+j));
           }
         }
       }
-      if(suma % 2 == 0){
-        paridadTres = 0;
-      }else{
-        paridadTres = 1;
-      }
-      codigoHamming.set(4, paridadTres);
-      
-    }
+       if(suma % 2 == 0){
+         paridadTres = 0;
+       }else{
+         paridadTres = 1;
+       }
+       codigoHamming.set(4, paridadTres);
+     }
      //PARDIDAD 4
      public static void paridadCuatro(){
       int suma = 0;
@@ -143,13 +146,15 @@ public class NumeroBinario{
           }
         }
       }
-      if(suma % 2 == 0){
-        paridadCuatro = 0;
-      }else{
-        paridadCuatro = 1;
-      }
-      codigoHamming.set(8, paridadCuatro);
-      System.out.println(codigoHamming);
-      
-    }
+       if(suma % 2 == 0){
+         paridadCuatro = 0;
+       }else{
+         paridadCuatro = 1;
+       }
+       codigoHamming.set(8, paridadCuatro);
+       System.out.println(codigoHamming);
+       System.out.println(suma);
+     }
+
+    
 }
