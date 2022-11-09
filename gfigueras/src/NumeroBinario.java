@@ -1,11 +1,20 @@
 import java.util.Arrays;
 import java.util.*;
-import java.util.stream.Stream;
+
 
 public class NumeroBinario{
+    public static ArrayList<Integer> potenciasDeDos = new ArrayList<Integer>();
+    public static ArrayList<Integer> posicionesArray = new ArrayList<Integer>();
+    public static ArrayList<Integer>codigoHamming = new ArrayList<Integer>();
     public static Integer numeroEscogido = 0;
+    static Integer hammingSize;
+    static Integer paridadUno;
+    static Integer paridadDos;
+    static Integer paridadTres;
+    static Integer paridadCuatro;
+    
     //!FUNCION PASAR DECIMAL A BINARIO
-    public static Integer[] imprimirNumeroBinario(){
+    public static Integer[] obtenerNumeroBinario(){
         String numBinario = Integer.toBinaryString(numeroEscogido);
         Integer numerosBinarios[] = new Integer[numBinario.length()];
         for(int i = 0; i< numBinario.length(); i++){
@@ -15,40 +24,42 @@ public class NumeroBinario{
     }//Function
 
 
-    public static ArrayList<Integer> arrayList = new ArrayList<Integer>();
     //!FUNCION PASAR BINARIO A DECIMAL
     public static Integer binarioDecimal(){
       Integer numeroEscogido = NumeroBinario.numeroEscogido;
       Integer tamaño = Integer.toBinaryString(numeroEscogido).length();
       Integer suma = 0;
       for(int i = tamaño -1; i >= 0; i--){
-        arrayList.add(i);
+        posicionesArray.add(i);
       }//for
-      System.out.println(arrayList);
+      System.out.println(posicionesArray);
       for(int i = 0; i <= tamaño - 1; i++){
-        if(imprimirNumeroBinario()[i] != 0){
-          System.out.print((int)Math.pow(2, arrayList.get(i)) + " ");
-          suma += (int)Math.pow(2, arrayList.get(i));
+        if(obtenerNumeroBinario()[i] != 0){
+          System.out.print((int)Math.pow(2, posicionesArray.get(i)) + " ");
+          suma += (int)Math.pow(2, posicionesArray.get(i));
         }//if
-      }//for
+      }//For
       return suma;
       }//function
-       
-      public static ArrayList<Integer> potenciasDeDos = new ArrayList<Integer>();
 
+      
+      //!FUNCTION BLOQUE
       public static void longitudBloque(){
-        Integer count = 0;
-        for(int i = 0; i<100; i++){
+        for(int i = 0; i<12; i++){
           potenciasDeDos.add((int)(Math.pow(2, i)));
         }
-        //  System.out.println(potenciasDeDos);
-        for(int i = 0; i< arrayList.size(); i++){
-          for(int j = 0; j<potenciasDeDos.size(); j++){
-            if(i == potenciasDeDos.get(j)){
-              count++;
-            }
+        System.out.println(potenciasDeDos);
+      }
+      //!FUNCTION CALCULAR BITS DE PARIDAD
+      public static Integer bitParidad = 0;
+      public static void calcularParidad(){
+        for(int i = 0; i<= 5; i++){
+          if((obtenerNumeroBinario().length + 1 + i) <= Math.pow(2, i)){
+            bitParidad = i;
+            break;
           }
         }
-        System.out.println(count);
+        // System.out.println(bitParidad);
+      
       }
-    }//clase
+    }
