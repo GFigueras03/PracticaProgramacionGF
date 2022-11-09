@@ -79,4 +79,77 @@ public class NumeroBinario{
       }
       System.out.println(codigoHamming);
       }
+      //PARDIDAD 1
+    public static void paridadUno(){
+      int suma = 0;
+      for(int i = 1; i< hammingSize; i+=2){
+        if(codigoHamming.get(i) != null){
+          suma += codigoHamming.get(i);
+        }
+      }
+      if(suma % 2 == 0){
+        paridadUno = 0;
+      }else{
+        paridadUno = 1;
+      }
+      codigoHamming.set(1, paridadUno);
+      
     }
+    //PARDIDAD 2
+    public static void paridadDos(){
+      int suma = 0;
+      for(int i = 2; i<hammingSize; i+=4){
+        if(codigoHamming.get(i) != null){
+          for(int j = 0; j<2; j++){
+            suma += codigoHamming.get(i + j);
+          }
+        }
+      }
+      if(suma % 2 == 0){
+        paridadDos = 0;
+      }else{
+        paridadDos = 1;
+      }
+      codigoHamming.set(2, paridadDos);
+      System.out.println(suma);
+    }
+     //PARDIDAD 3
+     public static void paridadTres(){
+      int suma = 0;
+      for(int i = 4; i<hammingSize; i+=8){
+        if(codigoHamming.get(i) != null){
+          for(int j = 0; j<4; j++){
+             suma += codigoHamming.get(i + j);
+            System.out.println(codigoHamming.get(i+j));
+          }
+        }
+      }
+      if(suma % 2 == 0){
+        paridadTres = 0;
+      }else{
+        paridadTres = 1;
+      }
+      codigoHamming.set(4, paridadTres);
+      
+    }
+     //PARDIDAD 4
+     public static void paridadCuatro(){
+      int suma = 0;
+      for(int i = 8; i<hammingSize; i+=16){
+        if(codigoHamming.get(i) != null){
+          for(int j = 0; j<8; j++){
+             suma += codigoHamming.get(i + j);
+            System.out.println(codigoHamming.get(i+j));
+          }
+        }
+      }
+      if(suma % 2 == 0){
+        paridadCuatro = 0;
+      }else{
+        paridadCuatro = 1;
+      }
+      codigoHamming.set(8, paridadCuatro);
+      System.out.println(codigoHamming);
+      
+    }
+}

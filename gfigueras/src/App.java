@@ -10,5 +10,9 @@ public class App {
         NumeroBinario.longitudBloque();
         NumeroBinario.calcularParidad();
         NumeroBinario.rellenarArray();
+        NumeroBinario.paridadUno();
+        NumeroBinario.paridadDos();
+        NumeroBinario.paridadTres();
+        NumeroBinario.paridadCuatro();
     }
 }
