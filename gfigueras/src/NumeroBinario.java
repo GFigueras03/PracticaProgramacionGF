@@ -9,6 +9,7 @@ public class NumeroBinario{
     public static ArrayList<Integer> potenciasDeDos = new ArrayList<Integer>();
     public static ArrayList<Integer> posicionesArray = new ArrayList<Integer>();
     public static ArrayList<Integer>codigoHamming = new ArrayList<Integer>();
+    public static ArrayList<Integer>posicionesErroneas = new ArrayList<Integer>();
     public static Integer numeroEscogido = 0;
     static Integer hammingSize;
     static Integer paridadUno;
@@ -18,7 +19,9 @@ public class NumeroBinario{
     static Integer paridadCinco;
     static Integer paridadGlobal;
     static Integer bitParidad;
-    static Integer noise;
+    static Integer noise = 0;
+
+
 
     
     //!FUNCION PASAR DECIMAL A BINARIO
@@ -231,26 +234,40 @@ public class NumeroBinario{
 
      public static Integer noise(){
         noise = (int)Math.round(Math.random()*2);
-        System.out.println(noise);
-      return noise;
+        System.out.println(noise + "ruido" );
+        return noise;
+      
+     }
+     public static ArrayList bucleRuido(){
+      if(noise > 0){
+       if(noise > 1){
+        posicionesErroneas.add(0,(int)Math.round(Math.random()*codigoHamming.size()));
+        posicionesErroneas.add(1,(int)Math.round(Math.random()*codigoHamming.size()));
+        }
+        else{
+          posicionesErroneas.add(0,(int)Math.round(Math.random()*codigoHamming.size()));
+
+        }
+       }
+       System.out.println(posicionesErroneas);
+      return posicionesErroneas;
      }
      public static void hacerRuido(){
       if(noise > 0){
-        Integer[] posicionesErroneas = new Integer[noise];
-        for(int i = 1; i<= noise; i++){
-          posicionesErroneas[i-1] = (int)Math.round(Math.random()*hammingSize -1);
-         if(posicionesErroneas.length > 1){
-           if(posicionesErroneas[0] == posicionesErroneas[1]){
-            posicionesErroneas[0] = (int)Math.round(Math.random()*hammingSize -1); 
-           }
-         }
-         System.out.println(Arrays.toString(posicionesErroneas));
-         codigoHamming.set(posicionesErroneas[i-1],(codigoHamming.get(posicionesErroneas[i-1])+1)%2);
-
-        
+         if(posicionesErroneas.size() > 1){
+          if(posicionesErroneas.get(0) == posicionesErroneas.get(1)){
+          posicionesErroneas.set(0, (int)Math.round(Math.random()*codigoHamming.size()));
+          }
+          else{
+            for(int i = 0; i< posicionesErroneas.size(); i++){
+              codigoHamming.set(posicionesErroneas.get(i),(codigoHamming.get(posicionesErroneas.get(i))+1)%2);
+            }
+          }
+       
         }
       }
-      System.out.println(codigoHamming);
-     }
-    
-}
+       System.out.println(posicionesArray);
+       System.out.println(codigoHamming);
+        
+    }
+  }

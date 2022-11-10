@@ -30,6 +30,7 @@ public class App {
         //!
         //?3
         NumeroBinario.noise();
+        NumeroBinario.bucleRuido();
         NumeroBinario.hacerRuido();
 
 
