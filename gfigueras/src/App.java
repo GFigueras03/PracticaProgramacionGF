@@ -3,8 +3,8 @@ import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        //NumeroBinario.numeroEscogido = (int)Math.round(Math.random()*1000);
-        NumeroBinario.numeroEscogido = 17;
+        NumeroBinario.numeroEscogido = (int)Math.round(Math.random()*1000);
+        // NumeroBinario.numeroEscogido = 490;
         System.out.println(Arrays.toString(NumeroBinario.obtenerNumeroBinario()));
         System.out.println("= "+NumeroBinario.binarioDecimal());
         NumeroBinario.longitudBloque();
@@ -14,6 +14,6 @@ public class App {
         NumeroBinario.paridadDos();
         NumeroBinario.paridadTres();
         NumeroBinario.paridadCuatro();
-        // NumeroBinario.contarParidadGlobal();
+        NumeroBinario.calcularParidadGlobal();
     }
 }
