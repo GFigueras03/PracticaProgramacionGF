@@ -74,7 +74,7 @@ public class NumeroBinario {
     System.out.println(codigoHamming);
   }
 
-  // *PARDIDAD 1
+  // // *PARDIDAD 1
   public static void paridadUno() {
     int suma = 0;
     for (int i = 1; i < hammingSize; i += 2) {
@@ -91,130 +91,37 @@ public class NumeroBinario {
     // System.out.println(suma + " paridadUno");
   }
 
-  // *PARDIDAD 2
-  public static void paridadDos() {
+  public static void calcularBitsParidad() {
     int suma = 0;
-    for (int i = 2; i < hammingSize; i += 4) {
-      for (int j = 0; j < 2; j++) {
-        if (codigoHamming.get(i) == null) {
-          codigoHamming.set(i, 0);
+    for (int p = 0; p < codigoHamming.size(); p++) {
+      if (codigoHamming.get(p) == null) {
+        codigoHamming.set(p, 0);
+      }
+    }
+    for (int i = 1; i < bitParidad; i++) {
+      for (int j = (int) Math.pow(2, i); j < hammingSize; j *= 2) {
+        if (codigoHamming.get(j) == null) {
+          codigoHamming.set(j, 0);
         }
-        if ((i + j) == hammingSize) {
-          break;
+        for (int k = 0; k <= j; k++) {
+          if ((j + k) == hammingSize) {
+            break;
+          } else {
+            suma += codigoHamming.get(j + k);
+            // System.out.println(k + " " + suma);
+          }
+        }
+        System.out.println(suma);
+        if (suma % 2 == 0) {
+          codigoHamming.set(j, 0);
         } else {
-          suma += codigoHamming.get(i + j);
+          codigoHamming.set(j, 1);
         }
       }
-    }
-    if (suma % 2 == 0) {
-      paridadDos = 0;
-    } else {
-      paridadDos = 1;
-    }
-    codigoHamming.set(2, paridadDos);
-    // System.out.println(suma + " paridadDos");
-    // System.out.println(codigoHamming);
-  }
 
-  // *PARDIDAD 3
-  public static void paridadTres() {
-    if (codigoHamming.size() > 4) {
-      int suma = 0;
-      for (int i = 4; i < hammingSize; i += 8) {
-        for (int j = 0; j < 4; j++) {
-          if (codigoHamming.get(i) == null) {
-            codigoHamming.set(i, 0);
-          } else if ((i + j) == hammingSize) {
-            break;
-          } else {
-            suma += codigoHamming.get(i + j);
-          }
-        }
-      }
-      if (suma % 2 == 0) {
-        paridadTres = 0;
-      } else {
-        paridadTres = 1;
-      }
-      codigoHamming.set(4, paridadTres);
-      // System.out.println(suma + " paridadTres");
-      // System.out.println(codigoHamming);
     }
   }
-
-  // *PARDIDAD 4
-  public static void paridadCuatro() {
-    if (bitParidad >= 4) {
-      int suma = 0;
-      for (int i = 8; i < hammingSize; i += 16) {
-        for (int j = 0; j < 8; j++) {
-          if (codigoHamming.get(i) == null) {
-            codigoHamming.set(i, 0);
-          }
-          if ((i + j) == hammingSize) {
-            break;
-          } else {
-            suma += codigoHamming.get(i + j);
-          }
-          // System.out.println(codigoHamming.get(i+j));
-        }
-      }
-      if (suma % 2 == 0) {
-        paridadCuatro = 0;
-      } else {
-        paridadCuatro = 1;
-      }
-      codigoHamming.set(8, paridadCuatro);
-      // System.out.println(suma + " paridadCuatro");
-      // System.out.println(codigoHamming);
-    }
-  }
-
-  // *PARDIDAD 4
-  public static void paridadCinco() {
-    if (bitParidad >= 5) {
-      int suma = 0;
-      for (int i = 16; i < hammingSize; i += 32) {
-        for (int j = 0; j < 16; j++) {
-          if (codigoHamming.get(i) == null) {
-            codigoHamming.set(i, 0);
-          }
-          if ((i + j) == hammingSize) {
-            break;
-          } else {
-            suma += codigoHamming.get(i + j);
-          }
-          // System.out.println(codigoHamming.get(i+j));
-        }
-      }
-      if (suma % 2 == 0) {
-        paridadCinco = 0;
-      } else {
-        paridadCinco = 1;
-      }
-      codigoHamming.set(16, paridadCuatro);
-      // System.out.println(suma + " paridadCuatro");
-      // System.out.println(codigoHamming);
-    }
-  }
-
-  public static void calcularParidadGlobal() {
-    int suma = 0;
-    for (int i = 1; i < hammingSize; i++) {
-      if (codigoHamming.get(i) == 1) {
-        suma += 1;
-      }
-    }
-    if (suma % 2 == 0) {
-      paridadGlobal = 0;
-    } else {
-      paridadGlobal = 1;
-    }
-    codigoHamming.set(0, paridadGlobal);
-    // System.out.println(suma + " paridadGlobal");
-    System.out.println("Codigo hamming entero = " + codigoHamming);
-  }
-
+  
   public static Integer noise() {
     noise = (int) Math.round(Math.random() * 2);
     for (int i = 0; i < codigoHamming.size(); i++) {

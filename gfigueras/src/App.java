@@ -12,14 +12,17 @@ public class App {
         // !
         // !RELLENAR EL ARRAY
         NumeroBinario.rellenarArray();
+        NumeroBinario.paridadUno();
+        NumeroBinario.calcularBitsParidad();
+        System.out.println(NumeroBinario.codigoHamming);
         // !
         // ! CALCULAR TODAS LAS PARIDADES Y BITS
-        // NumeroBinario.paridadUno();
+       
         // NumeroBinario.paridadDos();
         // NumeroBinario.paridadTres();
         // NumeroBinario.paridadCuatro();
         // NumeroBinario.paridadCinco();
-        // NumeroBinario.calcularParidadGlobal();
+        //NumeroBinario.calcularParidadGlobal();
         // System.out.println("<=============================>");
         // // !
         // // ?3
