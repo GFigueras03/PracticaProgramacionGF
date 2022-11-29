@@ -15,7 +15,7 @@ public class NumeroBinario {
   static Integer paridadGlobal;
   static Integer bitParidad;
   static Integer ruidoCase1;
-
+  //GETTER
   public static ArrayList<Integer> getCodigoHamming() {
     return codigoHamming;
   }
@@ -40,7 +40,6 @@ public class NumeroBinario {
   // !FUNCTION CALCULAR BITS DE PARIDAD
   public static void calcularParidad() {
     System.out.println(codigoHamming);
-
     int i = 0;
     do {
       i++;
@@ -86,7 +85,7 @@ public class NumeroBinario {
   public static ArrayList<Integer> calcularBitsParidad(ArrayList<Integer> codigo) {
     suma = 0;
     for (int i = 0; i < bitParidad; i++) {
-      for (int j = (int) Math.pow(2, i); j <= codigoHamming.size(); j += (int) Math.pow(2, (i + 1))) {
+      for (int j = (int) Math.pow(2, i); j <= (codigoHamming.size() -1); j += (int) Math.pow(2, (i + 1))) {
         for (int k = 0; k < (int) Math.pow(2, i); k++) {
           if ((j + k) == hammingSize) {
             break;
