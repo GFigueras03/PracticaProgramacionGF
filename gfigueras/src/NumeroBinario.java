@@ -2,19 +2,15 @@ import java.util.Arrays;
 import java.util.*;
 
 public class NumeroBinario {
-  public static Integer tamaño;
-  public static ArrayList<Integer> potenciasDeDos = new ArrayList<Integer>();
-  public static ArrayList<Integer> posicionesArray = new ArrayList<Integer>();
-  public static ArrayList<Integer> codigoHamming = new ArrayList<Integer>();
-  public static ArrayList<Integer> mensajeSended = new ArrayList<Integer>();
-  public static ArrayList<Integer> arrayPosicionesErroneas = new ArrayList<Integer>();
-  public static Integer numeroEscogido;
+  final static Integer PARIDADGLOBAL = 1;
+  private static Integer tamaño;
+  private static ArrayList<Integer> codigoHamming = new ArrayList<Integer>();
+  private static ArrayList<Integer> mensajeSended = new ArrayList<Integer>();
   private static Integer noise;
-  static Integer hammingSize;
-  static Integer suma = 0;
-  static Integer paridadGlobal;
-  static Integer bitParidad;
-  static Integer ruidoCase1;
+  private static Integer hammingSize;
+  private static Integer suma = 0;
+  private static Integer bitParidad;
+
   //GETTER
   public static ArrayList<Integer> getCodigoHamming() {
     return codigoHamming;
@@ -30,7 +26,7 @@ public class NumeroBinario {
 
   public static Integer[] mensaje = new Integer[tamaño()];
 
-  public static Integer[] mensaje() {
+  public static Integer[] crearMensaje() {
     for (int i = 0; i < mensaje.length; i++) {
       mensaje[i] = (int) Math.round(Math.random() * 1);
     }
@@ -40,22 +36,22 @@ public class NumeroBinario {
   // !FUNCTION CALCULAR BITS DE PARIDAD
   public static void calcularParidad() {
     System.out.println(codigoHamming);
-    int i = 0;
+    int calculoParidad = 0;
     do {
-      i++;
-      bitParidad = i;
-    } while ((mensaje.length + i + 1) > Math.pow(2, i));
-    System.out.println(bitParidad);
-    for (int j = 0; j < bitParidad + 1; j++) {
-      if ((((mensaje.length) + (bitParidad) + 1) + 1) == Math.pow(2, j)) {
+      calculoParidad++;
+      bitParidad = calculoParidad;
+    } while ((mensaje.length + calculoParidad + PARIDADGLOBAL) > Math.pow(2, calculoParidad));
+
+    for (int i = 0; i < bitParidad + 1; i++) {
+      if ((((mensaje.length) + (bitParidad) + 1) + PARIDADGLOBAL) == Math.pow(2, i)) {
         bitParidad--;
       }
     }
-    System.out.println("bitParidad = " + i);
+    System.out.println("bitParidad = " + calculoParidad);
   }
 
   public static void rellenarArray() {
-    hammingSize = ((mensaje.length) + (bitParidad) + 1);
+    hammingSize = ((mensaje.length) + (bitParidad) + PARIDADGLOBAL);
     for (int i = 0; i < mensaje.length; i++) {
       codigoHamming.add(i, mensaje[i]);
     } // For rellena el mensaje con el codigo original
@@ -112,7 +108,7 @@ public class NumeroBinario {
     return codigoHamming;
   }
 
-  public static ArrayList<Integer> paridadGlobal(ArrayList<Integer> codigo) {
+  public static ArrayList<Integer> calcularParidadGlobal(ArrayList<Integer> codigo) {
     suma = 0;
     for (int i = 0; i < hammingSize; i++) {
       if (codigoHamming.get(i) == 1) {
