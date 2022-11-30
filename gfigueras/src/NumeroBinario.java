@@ -183,6 +183,7 @@ public class NumeroBinario {
         System.out.println("\u001B[32mNO HA HABIDO NINGUN ERROR \u001B[37m");
         break;
       case 1:
+
         System.out.println("\u001B[31m Ha ocurrido 1 error \u001B[37m");
         comprobar();
         System.out.println(codigoHamming + "ORIGINAL");
@@ -197,8 +198,9 @@ public class NumeroBinario {
   public static void case1() {
     for (int i = 0; i < bitParidad; i++) {
       for (int j = (int) Math.pow(2, i); j <= (codigoHamming.size() - 1); j *= 2) {
-        if (arrayPosiciones[0] == j) {
+        if (arrayPosiciones[0] == j || arrayPosiciones[0] == 0) {
           System.out.println("Ha fallado un bit de paridad ");
+          System.out.println("LA POSICION DE PARIDAD FALLADA ES " + arrayPosiciones[0]);
           break;
         }
       }
