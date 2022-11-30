@@ -7,12 +7,14 @@ public class App {
         //?2
         NumeroBinario.calcularParidad();
         NumeroBinario.rellenarArray();
-        NumeroBinario.rellenarParidades();
-        NumeroBinario.calcularBitsParidad(NumeroBinario.getCodigoHamming());
-        System.out.println(NumeroBinario.calcularParidadGlobal(NumeroBinario.getCodigoHamming()));
+        NumeroBinario.rellenarParidades(NumeroBinario.getCodigoHamming());
+        NumeroBinario.calcularBitsParidad(NumeroBinario.getCodigoHamming(), NumeroBinario.getBitParidadGuardados());
+        System.out.println(NumeroBinario.calcularParidadGlobal(NumeroBinario.getCodigoHamming(), NumeroBinario.getBitParidadGuardados()));
         //?3
         NumeroBinario.noise();
         NumeroBinario.hacerRuido();
+        NumeroBinario.reciever();
+        
 
     }
 }//

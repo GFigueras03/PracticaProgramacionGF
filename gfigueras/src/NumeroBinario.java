@@ -6,17 +6,24 @@ public class NumeroBinario {
   private static Integer tamaño;
   private static ArrayList<Integer> codigoHamming = new ArrayList<Integer>();
   private static ArrayList<Integer> mensajeSended = new ArrayList<Integer>();
+  private static Integer[] bitparidadGuardados;
+  private static Integer[] bitParidadComparados;
+  private static Integer arrayPosiciones[];
+  private static Integer[] resultado;
   private static Integer noise;
   private static Integer hammingSize;
   private static Integer suma = 0;
   private static Integer bitParidad;
 
-  //GETTER
   public static ArrayList<Integer> getCodigoHamming() {
     return codigoHamming;
   }
 
+  public static Integer[] getBitParidadGuardados() {
+    return bitparidadGuardados;
+  }
   // *MENSAJE ALEATORIO */
+
   public static Integer tamaño() {
     Scanner sc = new Scanner(System.in);
     System.out.println("Introduce el tamaño del mensaje");
@@ -35,7 +42,6 @@ public class NumeroBinario {
 
   // !FUNCTION CALCULAR BITS DE PARIDAD
   public static void calcularParidad() {
-    System.out.println(codigoHamming);
     int calculoParidad = 0;
     do {
       calculoParidad++;
@@ -47,7 +53,9 @@ public class NumeroBinario {
         bitParidad--;
       }
     }
-    System.out.println("bitParidad = " + calculoParidad);
+    bitparidadGuardados = new Integer[bitParidad + PARIDADGLOBAL];
+    bitParidadComparados = new Integer[bitParidad + PARIDADGLOBAL];
+    resultado = new Integer[bitParidad];
   }
 
   public static void rellenarArray() {
@@ -66,61 +74,64 @@ public class NumeroBinario {
     if (codigoHamming.get(codigoHamming.size() - 1) == null) {
       codigoHamming.remove(codigoHamming.size() - 1);
     }
-    System.out.println(codigoHamming);
   }
 
-  public static ArrayList<Integer> rellenarParidades() {
+  public static ArrayList<Integer> rellenarParidades(ArrayList<Integer> codigo) {
     for (int i = 0; i < codigoHamming.size(); i++) {
-      if (codigoHamming.get(i) == null) {
-        codigoHamming.set(i, 0);
+      if (codigo.get(i) == null) {
+        codigo.set(i, 0);
       }
     }
-    return codigoHamming;
+    return codigo;
   }
 
-  public static ArrayList<Integer> calcularBitsParidad(ArrayList<Integer> codigo) {
+  public static ArrayList<Integer> calcularBitsParidad(ArrayList<Integer> codigo, Integer[] bitsguardados) {
     suma = 0;
     for (int i = 0; i < bitParidad; i++) {
-      for (int j = (int) Math.pow(2, i); j <= (codigoHamming.size() -1); j += (int) Math.pow(2, (i + 1))) {
+      for (int j = (int) Math.pow(2, i); j <= (codigoHamming.size() - 1); j += (int) Math.pow(2, (i + 1))) {
         for (int k = 0; k < (int) Math.pow(2, i); k++) {
           if ((j + k) == hammingSize) {
             break;
           } else if ((j + k) == (hammingSize - 1)) {
-            if (codigoHamming.get(j + k) == 1) {
+            if (codigo.get(j + k) == 1) {
               suma++;
             }
           } else {
-            if (codigoHamming.get(j + k) == 1) {
+            if (codigo.get(j + k) == 1) {
               suma++;
             }
           }
         }
-
       }
       if (suma % 2 == 0) {
-        codigoHamming.set((int) Math.pow(2, i), 0);
+        codigo.set((int) Math.pow(2, i), 0);
+        bitsguardados[i + 1] = 0;
         suma = 0;
       } else {
-        codigoHamming.set((int) Math.pow(2, i), 1);
+        codigo.set((int) Math.pow(2, i), 1);
+        bitsguardados[i + 1] = 1;
         suma = 0;
       }
     }
-    return codigoHamming;
+    return codigo;
   }
 
-  public static ArrayList<Integer> calcularParidadGlobal(ArrayList<Integer> codigo) {
+  public static ArrayList<Integer> calcularParidadGlobal(ArrayList<Integer> codigo, Integer[] bitsguardados) {
     suma = 0;
     for (int i = 0; i < hammingSize; i++) {
-      if (codigoHamming.get(i) == 1) {
+      if (codigo.get(i) == 1) {
         suma++;
       }
       if (suma % 2 == 0) {
-        codigoHamming.set(0, 0);
+        codigo.set(0, 0);
+        bitsguardados[0] = 0;
       } else {
-        codigoHamming.set(0, 1);
+        codigo.set(0, 1);
+        bitsguardados[0] = 1;
+
       }
     }
-    return codigoHamming;
+    return codigo;
   }
 
   public static Integer noise() {
@@ -133,7 +144,7 @@ public class NumeroBinario {
 
   public static void hacerRuido() {
     if (noise != 0) {
-      Integer arrayPosiciones[] = new Integer[noise];
+      arrayPosiciones = new Integer[noise];
       for (int i = 0; i < noise; i++) {
         Integer aux = (int) Math.round(Math.random() * (mensajeSended.size() - 1));
         arrayPosiciones[i] = aux;
@@ -152,23 +163,77 @@ public class NumeroBinario {
         mensajeSended.set((arrayPosiciones[1]), ((mensajeSended.get(arrayPosiciones[1]) + 1) %
             2));
       }
-      System.out.println(Arrays.toString(arrayPosiciones) + "TAMAÑO DEL MENSAJE ==" + codigoHamming.size());
+    }
+
+  }
+
+  public static void changenulls() {
+    for (int i = 0; i < 1; i++) {
+      for (int j = (int) Math.pow(2, i); j <= (codigoHamming.size() - 1); j *= 2) {
+        mensajeSended.set(j, null);
+        mensajeSended.set(0, null);
+      }
     }
   }
 
-  // public static void reciever() {
-  //   Integer cuenta = 0;
-  //   System.out.println("<==||Mensaje enviado/original = " + codigoHamming + "||==>");
-  //   System.out.println("<==||Mensaje recibido = " + mensajeSended + "||==>");
-  //   for (int i = 0; i < codigoHamming.size(); i++) {
-  //     if (codigoHamming.get(i) != mensajeSended.get(i)) {
-  //       System.out.println("||||| el bit numero " + i + " falla |||||");
-  //       cuenta++;
-  //     }
-  //   }
-  //   if (cuenta > 0)
-  //     System.out.println("<======El mensaje ha sufrido daños======>");
-  //   else
-  //     System.out.println("<=====El mensaje no ha sufrido daños======>");
-  // }
+  public static void reciever() {
+    changenulls();
+    switch (noise) {
+      case 0:
+        System.out.println("\u001B[32mNO HA HABIDO NINGUN ERROR \u001B[37m");
+        break;
+      case 1:
+        System.out.println("\u001B[31m Ha ocurrido 1 error \u001B[37m");
+        comprobar();
+        System.out.println(codigoHamming + "ORIGINAL");
+        System.out.println(mensajeSended + "RECIBIDO");
+        break;
+      case 2:
+        System.out.println("\u001B[31m Han ocurrido 2 errores \u001B[37m");
+        break;
+    }
+  }
+
+  public static void case1() {
+    for (int i = 0; i < bitParidad; i++) {
+      for (int j = (int) Math.pow(2, i); j <= (codigoHamming.size() - 1); j *= 2) {
+        if (arrayPosiciones[0] == j) {
+          System.out.println("Ha fallado un bit de paridad ");
+          break;
+        }
+      }
+    }
+  }
+
+  public static void case2() {
+    int aux = (bitParidad - 1);
+    for (int i = 1; i < bitParidadComparados.length; i++) {
+      if (bitparidadGuardados[i] != bitParidadComparados[i]) {
+        resultado[aux] = 1;
+        aux--;
+      } else {
+        resultado[aux] = 0;
+        aux--;
+      }
+    }
+    System.out.println(Arrays.toString(resultado));
+  }
+
+  public static void comprobar() {
+    for (int i = 0; i < bitParidad; i++) {
+      for (int j = (int) Math.pow(2, i); j <= (codigoHamming.size() - 1); j *= 2) {
+        if (arrayPosiciones[0] == j) {
+          case1();
+          break;
+        } else {
+          rellenarParidades(mensajeSended);
+          calcularBitsParidad(mensajeSended, bitParidadComparados);
+          calcularParidadGlobal(mensajeSended, bitParidadComparados);
+          case2();
+          break;
+        }
+      }
+      break;
+    }
+  }
 }
