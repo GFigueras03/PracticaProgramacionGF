@@ -2,14 +2,15 @@ import java.util.Arrays;
 import java.util.*;
 
 public class NumeroBinario {
-  final static Integer PARIDADGLOBAL = 1;
+  private final static Integer PARIDADGLOBAL = 1;
   private static Integer tamaño;
   private static ArrayList<Integer> codigoHamming = new ArrayList<Integer>();
   private static ArrayList<Integer> mensajeSended = new ArrayList<Integer>();
   private static Integer[] bitparidadGuardados;
   private static Integer[] bitParidadComparados;
-  private static Integer arrayPosiciones[];
+  private static Integer[] arrayPosiciones;
   private static Integer[] resultado;
+  private static Integer[] potenciasDeDos;
   private static Integer noise;
   private static Integer hammingSize;
   private static Integer suma = 0;
@@ -55,6 +56,7 @@ public class NumeroBinario {
     }
     bitparidadGuardados = new Integer[bitParidad + PARIDADGLOBAL];
     bitParidadComparados = new Integer[bitParidad + PARIDADGLOBAL];
+    potenciasDeDos = new Integer[bitParidad + PARIDADGLOBAL];
     resultado = new Integer[bitParidad];
   }
 
@@ -164,7 +166,44 @@ public class NumeroBinario {
             2));
       }
     }
+    System.out.println(mensajeSended + "\u001B[36m==MENSAJE RECIBIDO==\u001B[37m");
+  }
 
+  public static void reciever() {
+    switch (noise) {
+      case 0:
+        System.out.println("\u001B[32mNO HA HABIDO NINGUN ERROR \u001B[37m");
+        break;
+      case 1:
+        System.out.println("\u001B[31mHA OCURRIDO UN ERROR \u001B[37m");
+        comprobar();
+        break;
+      case 2:
+        System.out.println("\u001B[31m Han ocurrido 2 errores \u001B[37m");
+        break;
+    }
+  }
+
+  public static void comprobar() {
+    boolean paridad = false;
+    for (int j = 0; j < bitParidad; j++) {
+      for (int i = 0; i < bitParidad; i++) {
+        if (arrayPosiciones[0] == (int) Math.pow(2, i) || arrayPosiciones[0] == 0) {
+          case1();
+          paridad = true;
+          break;
+        }
+      }
+      if (paridad == false) {
+        changenulls();
+        rellenarParidades(mensajeSended);
+        calcularBitsParidad(mensajeSended, bitParidadComparados);
+        calcularParidadGlobal(mensajeSended, bitParidadComparados);
+        case2();
+        break;
+      }
+      break;
+    }
   }
 
   public static void changenulls() {
@@ -176,35 +215,9 @@ public class NumeroBinario {
     }
   }
 
-  public static void reciever() {
-    changenulls();
-    switch (noise) {
-      case 0:
-        System.out.println("\u001B[32mNO HA HABIDO NINGUN ERROR \u001B[37m");
-        break;
-      case 1:
-
-        System.out.println("\u001B[31m Ha ocurrido 1 error \u001B[37m");
-        comprobar();
-        System.out.println(codigoHamming + "ORIGINAL");
-        System.out.println(mensajeSended + "RECIBIDO");
-        break;
-      case 2:
-        System.out.println("\u001B[31m Han ocurrido 2 errores \u001B[37m");
-        break;
-    }
-  }
-
   public static void case1() {
-    for (int i = 0; i < bitParidad; i++) {
-      for (int j = (int) Math.pow(2, i); j <= (codigoHamming.size() - 1); j *= 2) {
-        if (arrayPosiciones[0] == j || arrayPosiciones[0] == 0) {
-          System.out.println("Ha fallado un bit de paridad ");
-          System.out.println("LA POSICION DE PARIDAD FALLADA ES " + arrayPosiciones[0]);
-          break;
-        }
-      }
-    }
+    System.out.println("\u001B[31mHA FALLADO UN BIT DE PARIDAD \u001B[37m");
+    System.out.println("\u001B[31mLA POSICION DE PARIDAD FALLADA ES \u001B[37m" + arrayPosiciones[0]);
   }
 
   public static void case2() {
@@ -219,23 +232,6 @@ public class NumeroBinario {
       }
     }
     System.out.println(Arrays.toString(resultado));
-  }
-
-  public static void comprobar() {
-    for (int i = 0; i < bitParidad; i++) {
-      for (int j = (int) Math.pow(2, i); j <= (codigoHamming.size() - 1); j *= 2) {
-        if (arrayPosiciones[0] == j) {
-          case1();
-          break;
-        } else {
-          rellenarParidades(mensajeSended);
-          calcularBitsParidad(mensajeSended, bitParidadComparados);
-          calcularParidadGlobal(mensajeSended, bitParidadComparados);
-          case2();
-          break;
-        }
-      }
-      break;
-    }
+    System.out.println("\u001B[35mREVISA EL MENSAJE RECIBIDO CON LA POSICION BINARIA ANTERIOR!!\u001B[37m");
   }
 }
